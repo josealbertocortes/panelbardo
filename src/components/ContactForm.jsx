@@ -17,71 +17,92 @@ function ContactForm() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Here you would typically send the form data to a backend server
     console.log('Form submitted:', formData);
     alert('Mensaje enviado. ¡Gracias por contactarnos!');
-    setFormData({ name: '', email: '', message: '' }); // Clear form
+    setFormData({ name: '', email: '', message: '' });
   };
 
   return (
-    <section id='talkus'>
-      <h2 className="text-white text-[22px] font-bold leading-tight tracking-[-0.015em] px-4 pb-3 pt-5">Contacto</h2>
-      <p className="text-white text-base font-normal leading-normal pb-3 pt-1 px-4">Visítanos en nuestra tienda o contáctanos para pedidos especiales y consultas.</p>
-      <div className="p-4 grid grid-cols-[20%_1fr] gap-x-6">
-        <div className="col-span-2 grid grid-cols-subgrid border-t border-t-[#4d4d4d] py-5">
-          <p className="text-[#adadad] text-sm font-normal leading-normal">Teléfono</p>
-          <p className="text-white text-sm font-normal leading-normal">+1 (555) 123-4567</p>
+    <section id="talkus" className="px-4 py-6 md:px-16 md:py-10 max-w-7xl mx-auto">
+      <h2 className="text-white text-xl md:text-3xl font-bold leading-tight tracking-tight mb-4">
+        Contacto
+      </h2>
+      <p className="text-white text-base md:text-lg font-normal leading-relaxed mb-6">
+        Visítanos en nuestra tienda o contáctanos para pedidos especiales y consultas.
+      </p>
+
+      {/* Sección de Información de Contacto (Teléfono, Correo) */}
+      {/* - `grid gap-6`: Crea una cuadrícula con espacio entre los elementos.
+        - `md:grid-cols-2`: En pantallas medianas (md) y superiores, la cuadrícula tendrá 2 columnas,
+                           lo que hará que Teléfono y Correo Electrónico se muestren lado a lado.
+        - Por defecto (en móviles), `grid` sin `grid-cols-X` implícitamente crea una columna,
+          lo que hace que los elementos se apilen verticalmente, ideal para pantallas pequeñas.
+      */}
+      <div className="grid gap-6 mb-8 border-t border-[#4d4d4d] pt-6 md:grid-cols-2">
+        <div>
+          <p className="text-[#adadad] text-sm font-normal">Teléfono</p>
+          <p className="text-white text-sm font-normal">+1 (555) 123-4567</p>
         </div>
-        <div className="col-span-2 grid grid-cols-subgrid border-t border-t-[#4d4d4d] py-5">
-          <p className="text-[#adadad] text-sm font-normal leading-normal">Correo Electrónico</p>
-          <p className="text-white text-sm font-normal leading-normal">info@panelbardo.com</p>
+        <div>
+          <p className="text-[#adadad] text-sm font-normal">Correo Electrónico</p>
+          <p className="text-white text-sm font-normal">info@panelbardo.com</p>
         </div>
       </div>
-      <form onSubmit={handleSubmit}>
-        <div className="flex max-w-[480px] flex-wrap items-end gap-4 px-4 py-3">
-          <label className="flex flex-col min-w-40 flex-1">
-            <p className="text-white text-base font-medium leading-normal pb-2">Nombre</p>
-            <input
-              type="text"
-              name="name"
-              placeholder="Tu nombre"
-              className="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-xl text-white focus:outline-0 focus:ring-0 border border-[#4d4d4d] bg-neutral-800 focus:border-[#4d4d4d] h-14 placeholder:text-[#adadad] p-[15px] text-base font-normal leading-normal"
-              value={formData.name}
-              onChange={handleChange}
-            />
-          </label>
-        </div>
-        <div className="flex max-w-[480px] flex-wrap items-end gap-4 px-4 py-3">
-          <label className="flex flex-col min-w-40 flex-1">
-            <p className="text-white text-base font-medium leading-normal pb-2">Correo Electrónico</p>
-            <input
-              type="email"
-              name="email"
-              placeholder="Tu correo electrónico"
-              className="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-xl text-white focus:outline-0 focus:ring-0 border border-[#4d4d4d] bg-neutral-800 focus:border-[#4d4d4d] h-14 placeholder:text-[#adadad] p-[15px] text-base font-normal leading-normal"
-              value={formData.email}
-              onChange={handleChange}
-            />
-          </label>
-        </div>
-        <div className="flex max-w-[480px] flex-wrap items-end gap-4 px-4 py-3">
-          <label className="flex flex-col min-w-40 flex-1">
-            <p className="text-white text-base font-medium leading-normal pb-2">Mensaje</p>
-            <textarea
-              name="message"
-              placeholder="Tu mensaje"
-              className="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-xl text-white focus:outline-0 focus:ring-0 border border-[#4d4d4d] bg-neutral-800 focus:border-[#4d4d4d] min-h-36 placeholder:text-[#adadad] p-[15px] text-base font-normal leading-normal"
-              value={formData.message}
-              onChange={handleChange}
-            ></textarea>
-          </label>
-        </div>
-        <div className="flex px-4 py-3 justify-start">
+
+      {/* Formulario de Contacto */}
+      {/* - `grid gap-6`: Los campos del formulario también se organizan en una cuadrícula.
+        - `max-w-xl`: Limita el ancho máximo del formulario para que no se extienda demasiado
+                      en pantallas grandes, mejorando la legibilidad.
+        - Por defecto (en móviles), cada `<label>` ocupará su propia fila completa.
+      */}
+      <form onSubmit={handleSubmit} className="grid gap-6 max-w-xl">
+        {/* Cada label con `flex flex-col` asegura que el texto del label y el input/textarea
+            siempre se apilen verticalmente, lo cual es bueno para la usabilidad en todos los tamaños. */}
+        <label className="flex flex-col">
+          <span className="text-white text-base font-medium mb-2">Nombre</span>
+          <input
+            type="text"
+            name="name"
+            placeholder="Tu nombre"
+            className="rounded-xl text-white border border-[#4d4d4d] bg-neutral-800 h-14 px-4 placeholder:text-[#adadad] text-base focus:outline-none focus:ring-0"
+            value={formData.name}
+            onChange={handleChange}
+            required
+          />
+        </label>
+
+        <label className="flex flex-col">
+          <span className="text-white text-base font-medium mb-2">Correo Electrónico</span>
+          <input
+            type="email"
+            name="email"
+            placeholder="Tu correo electrónico"
+            className="rounded-xl text-white border border-[#4d4d4d] bg-neutral-800 h-14 px-4 placeholder:text-[#adadad] text-base focus:outline-none focus:ring-0"
+            value={formData.email}
+            onChange={handleChange}
+            required
+          />
+        </label>
+
+        <label className="flex flex-col">
+          <span className="text-white text-base font-medium mb-2">Mensaje</span>
+          <textarea
+            name="message"
+            placeholder="Tu mensaje"
+            className="rounded-xl text-white border border-[#4d4d4d] bg-neutral-800 min-h-[140px] px-4 py-3 placeholder:text-[#adadad] text-base focus:outline-none focus:ring-0 resize-none"
+            value={formData.message}
+            onChange={handleChange}
+            required
+          ></textarea>
+        </label>
+
+        {/* Botón de Enviar: Se adapta automáticamente al ancho del formulario. */}
+        <div>
           <button
             type="submit"
-            className="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-10 px-4 bg-[#141414] text-white text-sm font-bold leading-normal tracking-[0.015em]"
+            className="rounded-full bg-[#141414] text-white text-sm font-bold px-6 py-2 hover:bg-[#1f1f1f] transition"
           >
-            <span className="truncate">Enviar</span>
+            Enviar
           </button>
         </div>
       </form>

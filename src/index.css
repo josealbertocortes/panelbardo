@@ -2,3 +2,21 @@
 html {
     scroll-behavior: smooth !important;
   }
+
+  body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Plus Jakarta Sans', 'Noto Sans', sans-serif;
+  }
+  
+  @media (max-width: 768px) {
+    body {
+      font-size: 14px; /* Ajusta el tamaño de fuente para pantallas pequeñas */
+    }
+  }
+  
+  @media (max-width: 480px) {
+    body {
+      font-size: 12px; /* Ajusta aún más el tamaño de fuente para pantallas muy pequeñas */
+    }
+  }
