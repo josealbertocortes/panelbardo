@@ -6,7 +6,7 @@ function AboutUs() {
   <div class="max-w-4xl mx-auto flex flex-col md:flex-row items-center gap-8">
     <div class="w-full md:w-1/2">
       <img
-        src="/images/pastelcuatro.jpeg" // Replace with the actual image URL
+        src="/images/pastelcinco.jpeg" // Replace with the actual image URL
         alt="Una imagen de Pan El Bardo"
         class="w-full h-auto object-cover rounded-lg shadow-lg"
       />

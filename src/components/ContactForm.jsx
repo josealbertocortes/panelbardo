@@ -28,7 +28,7 @@ function ContactForm() {
         Contacto
       </h2>
       <p className="text-white text-base md:text-lg font-normal leading-relaxed mb-6">
-        Visítanos en nuestra tienda o contáctanos para pedidos especiales y consultas.
+        Visítanos en nuestra redes sociales o contáctanos para pedidos especiales y consultas.
       </p>
 
       {/* Sección de Información de Contacto (Teléfono, Correo) */}
