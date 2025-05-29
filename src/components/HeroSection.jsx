@@ -2,6 +2,7 @@ import React from 'react';
 
 function HeroSection() {
   return (
+    <section id='inicio'> 
     <div className="@container">
       <div className="@[480px]:p-4">
         <div
@@ -26,6 +27,7 @@ function HeroSection() {
         </div>
       </div>
     </div>
+    </section>
   );
 }
 

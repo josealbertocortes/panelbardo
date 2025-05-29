@@ -12,14 +12,14 @@ function Header() {
             ></path>
           </svg>
         </div>
-        <h2 className="text-white text-lg font-bold leading-tight tracking-[-0.015em]">Pan El Bardo</h2>
+        <h2 className="text-white text-lg font-bold leading-tight tracking-[-0.015em]">Pan del Bardo</h2>
       </div>
       <div className="flex flex-1 justify-end gap-8">
         <div className="flex items-center gap-9">
-          <a className="text-white text-sm font-medium leading-normal" href="#">Inicio</a>
-          <a className="text-white text-sm font-medium leading-normal" href="#">Productos</a>
-          <a className="text-white text-sm font-medium leading-normal" href="#">Sobre Nosotros</a>
-          <a className="text-white text-sm font-medium leading-normal" href="#">Contacto</a>
+          <a className="text-white text-sm font-medium leading-normal" href="#inicio">Inicio</a>
+          <a className="text-white text-sm font-medium leading-normal" href="#productos">Productos</a>
+          <a className="text-white text-sm font-medium leading-normal" href="#aboutus">Sobre Nosotros</a>
+          <a className="text-white text-sm font-medium leading-normal" href="#talkus">Contacto</a>
         </div>
       </div>
     </header>

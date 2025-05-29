@@ -24,7 +24,7 @@ function ContactForm() {
   };
 
   return (
-    <>
+    <section id='talkus'>
       <h2 className="text-white text-[22px] font-bold leading-tight tracking-[-0.015em] px-4 pb-3 pt-5">Contacto</h2>
       <p className="text-white text-base font-normal leading-normal pb-3 pt-1 px-4">Visítanos en nuestra tienda o contáctanos para pedidos especiales y consultas.</p>
       <div className="p-4 grid grid-cols-[20%_1fr] gap-x-6">
@@ -85,7 +85,7 @@ function ContactForm() {
           </button>
         </div>
       </form>
-    </>
+    </section>
   );
 }
 

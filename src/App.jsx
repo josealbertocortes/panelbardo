@@ -11,7 +11,7 @@ function App() {
   return (
     <div
       className="relative flex size-full min-h-screen flex-col bg-[#1a1a1a] dark group/design-root overflow-x-hidden"
-      style={{ fontFamily: '"Plus Jakarta Sans", "Noto Sans", sans-serif', scrollBehavior: 'smooth' }}
+      style={{ fontFamily: '"Plus Jakarta Sans", "Noto Sans", sans-serif' }}
     >
       <div className="layout-container flex h-full grow flex-col">
         <Header />
