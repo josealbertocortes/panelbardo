@@ -57,6 +57,7 @@ function ContactForm() {
         data-netlify="true" // Le dice a Netlify que capture este formulario
         // action="/success" // Opcional: Redirige a una página /success después del envío
         onSubmit={handleSubmit} // Mantenemos tu lógica de limpieza de formulario y alerta
+        action="/success"
         className="grid gap-6 max-w-xl"
       >
         {/* Campo oculto necesario para Netlify Forms con React/JSX */}
