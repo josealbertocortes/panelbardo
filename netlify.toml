@@ -4,5 +4,4 @@
 
 [functions]
   directory = "netlify/functions" # Directorio donde están tus funciones
-  node_bundler = "esbuild"
   
