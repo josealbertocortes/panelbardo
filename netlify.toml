@@ -1,8 +1,10 @@
 [build]
-  publish = "dist"
-  command = "npm run build"
+  publish = "dist" # O la carpeta donde Vite genera tu build (normalmente 'dist')
+  command = "npm run build" # O tu comando de construcción de React
 
 [functions]
   directory = "netlify/functions" # Directorio donde están tus funciones
-  node_bundler = "esbuild"
-  python_version = "3.9" # O la versión de Python que prefieras (e.g., "3.10", "3.11")
+  # Corregido: usa 'python_runtime' en lugar de 'python_version'
+  # Y el valor debe ser "python3.9" (o la versión que uses)
+  python_runtime = "python3.9"
+  node_bundler = "esbuild" # Esto es para el bundler de JS/TS, puedes mantenerlo si usas Node.js functions o si no causa conflicto.
