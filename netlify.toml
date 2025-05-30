@@ -4,7 +4,5 @@
 
 [functions]
   directory = "netlify/functions" # Directorio donde están tus funciones
-  # Corregido: usa 'python_runtime' en lugar de 'python_version'
-  # Y el valor debe ser "python3.9" (o la versión que uses)
-  python_runtime = "python3.9"
-  node_bundler = "esbuild" # Esto es para el bundler de JS/TS, puedes mantenerlo si usas Node.js functions o si no causa conflicto.
+  node_bundler = "esbuild"
+  
