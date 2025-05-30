@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import App from './App.jsx'; // This is where your main App component will be
-import './index.css'; // For global styles, or Tailwind CSS setup
+import App from './App.jsx';
+import './index.css'; // Asegúrate de que tus estilos globales se importen aquí
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
