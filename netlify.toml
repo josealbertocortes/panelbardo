@@ -3,5 +3,5 @@
   command = "npm run build" # O tu comando de construcción de React
 
 [functions]
-  directory = "netlify/functions" # Directorio donde están tus funciones
-  
+  directory = "netlify/functions" # El directorio padre de tus funciones
+  node_bundler = "esbuild" # Netlify usará esbuild para tus funciones JS/TS
