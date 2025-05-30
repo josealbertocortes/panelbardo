@@ -1,0 +1,8 @@
+[build]
+  publish = "dist"
+  command = "npm run build"
+
+[functions]
+  directory = "netlify/functions" # Directorio donde están tus funciones
+  node_bundler = "esbuild"
+  python_version = "3.9" # O la versión de Python que prefieras (e.g., "3.10", "3.11")

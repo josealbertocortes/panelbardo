@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom'; // Importa useNavigate
+import React, { useState }  from 'react';
+import { useNavigate } from 'react-router-dom';
 
 function ContactForm() {
   const [formData, setFormData] = useState({
@@ -8,7 +8,7 @@ function ContactForm() {
     message: '',
   });
 
-  const navigate = useNavigate(); // Hook para la navegación programática
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -18,34 +18,32 @@ function ContactForm() {
     }));
   };
 
-  const handleSubmit = async (e) => { // Marca como async si vas a usar fetch
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Forma recomendada para Netlify Forms con React
-    // Envía los datos directamente al endpoint de Netlify
-    const form = e.target;
-    const data = new FormData(form);
-
     try {
-      // Envía el formulario a Netlify. Netlify lo detectará por el `form-name` oculto
-      // y los atributos `data-netlify="true"` y `method="POST"`.
-      // La acción (action) en el form no es necesaria aquí si usas fetch,
-      // pero si la pones, Netlify puede usarla para redirigir directamente.
-      // Para un SPA, es mejor manejar la redirección con `Maps`.
-
-      await fetch("/", { // Puedes enviar a la raíz, Netlify lo intercepta
-        method: "POST",
-        headers: { "Content-Type": "application/x-www-form-urlencoded" },
-        body: new URLSearchParams(data).toString(),
+      // La URL de tu función Netlify
+      // Es /netlify/functions/nombre-de-tu-funcion
+      const response = await fetch('/.netlify/functions/submit-contact-form/submit-contact-form', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData), // Envía los datos como JSON
       });
 
-      // Redirige a la página de gracias después del envío exitoso
-      navigate('/gracias'); // Usa navigate de React Router
+      const result = await response.json();
 
-      setFormData({ name: '', email: '', message: '' }); // Limpia el formulario
+      if (response.ok) {
+        alert(result.message);
+        setFormData({ name: '', email: '', message: '' });
+        navigate('/gracias');
+      } else {
+        alert(`Error: ${result.detail || result.message || 'Algo salió mal al enviar el mensaje.'}`);
+      }
     } catch (error) {
       console.error('Error al enviar el formulario:', error);
-      alert('Hubo un error al enviar tu mensaje. Por favor, inténtalo de nuevo.');
+      alert('Hubo un error de conexión. Por favor, inténtalo de nuevo más tarde.');
     }
   };
 
@@ -69,17 +67,7 @@ function ContactForm() {
         </div>
       </div>
 
-      <form
-        name="contact"
-        method="POST"
-        data-netlify="true"
-        // action="/gracias" // Puedes dejar esto si quieres que Netlify maneje la redirección directamente después del envío
-        onSubmit={handleSubmit}
-        className="grid gap-6 max-w-xl"
-      >
-        {/* Campo oculto para Netlify Forms con React/JSX */}
-        <input type="hidden" name="form-name" value="contact" />
-
+      <form onSubmit={handleSubmit} className="grid gap-6 max-w-xl">
         <label className="flex flex-col">
           <span className="text-white text-base font-medium mb-2">Nombre</span>
           <input
