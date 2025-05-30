@@ -1,7 +1,11 @@
 [build]
-  publish = "dist" # O la carpeta donde Vite genera tu build (normalmente 'dist')
-  command = "npm run build" # O tu comando de construcción de React
+  publish = "dist" # La carpeta de salida de tu build de React (ej. 'dist' para Vite)
+  command = "npm run build" # El comando para construir tu frontend
 
 [functions]
   directory = "netlify/functions" # El directorio padre de tus funciones
-  node_bundler = "esbuild" # Netlify usará esbuild para tus funciones JS/TS
+  node_bundler = "esbuild" # Netlify usará esbuild para tus funciones JS/TS.
+
+
+[[plugins]]
+package = "@netlify/plugin-functions-install-core"
