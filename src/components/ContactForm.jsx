@@ -35,15 +35,13 @@ function ContactForm() {
       const result = await response.json();
 
       if (response.ok) {
-        alert(result.message);
         setFormData({ name: '', email: '', message: '' });
         navigate('/gracias');
       } else {
-        alert(`Error: ${result.detail || result.message || 'Algo salió mal al enviar el mensaje.'}`);
+        navigate('/gracias');
       }
     } catch (error) {
-      console.error('Error al enviar el formulario:', error);
-      alert('Hubo un error de conexión. Por favor, inténtalo de nuevo más tarde.');
+      navigate('/gracias');
     }
   };
 
