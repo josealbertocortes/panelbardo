@@ -63,7 +63,7 @@ exports.handler = async (event, context) => {
       port: 465,
       secure: true, // true for 465, false for other ports
       auth: {
-        user: senderEmail,
+        user: 'saborespaso2024@gmail.com',
         pass: senderPassword, // App Password
       },
     });
@@ -71,7 +71,7 @@ exports.handler = async (event, context) => {
     // Email content
     const mailOptions = {
       from: `"${name}" <${email}>`, // Display sender's name
-      to: receiverEmail,
+      to: 'saborespaso2024@gmail.com',
       subject: `Nuevo mensaje de contacto de ${name} - Pan El Bardo`,
       html: `
         <html>
