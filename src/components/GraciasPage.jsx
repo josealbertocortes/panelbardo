@@ -16,12 +16,15 @@ function GraciasPage() {
               Hemos recibido tu mensaje y te responderemos lo antes posible.
             </p>
             <div className="flex px-4 py-3 justify-center mt-4"> {/* Añadido mt-4 para espacio */}
-              <a
-                href="/" // Enlace a la página de inicio (normalmente la raíz "/")
-                className="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-10 px-4 bg-black text-white text-sm font-bold leading-normal tracking-[0.015em] hover:bg-[#1f1f1f] transition-colors sm:h-12 sm:px-6 sm:text-base" // Ajustes para botón responsivo
-              >
-                <span className="truncate">Volver a la pagina de inicio</span>
-              </a>
+            <div class="flex px-4 py-3 justify-center">
+  <a
+    href="https://wa.me/TU_NUMERO_DE_WHATSAPP_AQUI?text=Hola%2C%20quisiera%20saber%20mas%20sobre%20sus%20servicios."
+    class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-10 px-4 bg-black text-white text-sm font-bold leading-normal tracking-[0.015em]"
+    target="_blank" rel="noopener noreferrer" 
+  >
+    <span class="truncate">Contactar por WhatsApp</span>
+  </a>
+</div>
             </div>
           </div>
         </div>

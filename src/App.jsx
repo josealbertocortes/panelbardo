@@ -8,6 +8,7 @@ import ContactForm from './components/ContactForm';
 import ProductsSection from './components/ProductSection'; // Lo crearemos en el siguiente paso
 import Footer from './components/Footer'; // Lo crearemos en el siguiente paso
 import GraciasPage from './components/GraciasPage'; // Tu componente de página de gracias
+import CategoryPage from './components/CategoryPage';
 
 // Define un componente de Layout para el header y footer (opcional pero bueno para mantener el layout)
 function MainLayout({ children }) {
@@ -74,6 +75,7 @@ function App() {
         <Route path="/sobre-nosotros" element={<MainLayout><AboutUs /></MainLayout>} />
         <Route path="/contacto" element={<MainLayout><ContactForm /></MainLayout>} />
         <Route path="/gracias" element={<MainLayout><GraciasPage /></MainLayout>} /> {/* Ruta para la página de gracias */}
+        <Route path="/productos/:categoryName" element={<CategoryPage />} />
         {/* Puedes añadir una ruta 404 si lo deseas */}
         {/* <Route path="*" element={<MainLayout><div>404 Not Found</div></MainLayout>} /> */}
       </Routes>

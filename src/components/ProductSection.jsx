@@ -1,5 +1,5 @@
 import React from 'react';
-
+import { Link } from 'react-router-dom';
 // Aquí puedes importar tus imágenes si las tienes en src/assets
 // import producto1Img from '../assets/images/producto1.jpg';
 // import producto2Img from '../assets/images/producto2.jpg';
@@ -8,9 +8,9 @@ import React from 'react';
 // Define un array de productos para renderizar
 // Si usas imágenes de `public/images`, las rutas serían "/images/producto1.jpg"
 const products = [
-  { id: 1, name: 'Pasteles Artesanales', description: '  Una experiencia indulgente para los verdaderos amantes del cacao', image: '/images/pasteluno.jpeg' },
-  { id: 2, name: 'Paquete pastel', description: 'Descubre un mundo de sabores en nuestro paquete especial.', image: '/images/pasteldos.jpeg' },
-  { id: 3, name: 'Pasteles Unicos', description: 'Deléitate con nuestro pastel de chocolate oscuro.', image: '/images/pasteltres.jpeg' },
+  { id: 1, name: 'Pasteles Artesanales', description: '  Una experiencia indulgente para los verdaderos amantes del cacao', image: '/images/pasteluno.jpeg',  category: 'pasteles' },
+  { id: 2, name: 'Galletas', description: 'Descubre un mundo de sabores en nuestro paquete especial.', image: '/images/pasteldos.jpeg',  category: 'galletas' },
+  { id: 3, name: 'Tartas', description: 'Deléitate con nuestro pastel de chocolate oscuro.', image: '/images/pasteltres.jpeg',  category: 'tartas' },
 ];
 
 function ProductsSection() {
@@ -49,7 +49,16 @@ function ProductsSection() {
               <p className="text-white text-lg font-medium leading-normal mb-1">{product.name}</p>
               <p className="text-[#adadad] text-sm font-normal leading-normal">{product.description}</p>
             </div>
- 
+          {/* INICIO del Botón "Ver más de la categoría" */}
+          <div className="flex justify-center mt-auto w-full"> {/* mt-auto para empujar el botón hacia abajo */}
+              <Link
+                to={`/productos/${product.category}`} // <-- La ruta dinámica a la página de categoría
+                className="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-10 px-4 bg-blue-600 hover:bg-blue-700 text-white text-sm font-bold leading-normal tracking-[0.015em] transition duration-300 w-full"
+              >
+                <span className="truncate">Ver más</span>
+              </Link>
+            </div>
+            {/* FIN del Botón */}
           </div>
         ))}
       </div>
