@@ -44,7 +44,7 @@ function CategoryPage() {
                 <div>
                   <p className="text-white text-lg font-medium leading-normal mb-1">{product.name}</p>
                   <p className="text-[#adadad] text-sm font-normal leading-normal">{product.description}</p>
-                  <p className="text-white text-md font-bold mt-2">${product.price.toFixed(2)}</p> {/* Muestra el precio con 2 decimales */}
+                  {/* <p className="text-white text-md font-bold mt-2">${product.price.toFixed(2)}</p>  */}
                 </div>
                 
                 {/* Botón "Pedir" para cada producto */}
