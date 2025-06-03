@@ -30,7 +30,7 @@ function CategoryPage() {
          style={{ fontFamily: '"Plus Jakarta Sans", "Noto Sans", sans-serif' }}>
       <div className="layout-container flex h-full grow flex-col px-40 py-10">
         <h2 className="text-white tracking-light text-[28px] font-bold leading-tight px-4 text-center pb-8">
-          Productos de la categoría: {categoryName.charAt(0).toUpperCase() + categoryName.slice(1)}
+         {categoryName.charAt(0).toUpperCase() + categoryName.slice(1)}
         </h2>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 p-4 max-w-screen-lg mx-auto justify-items-center">
