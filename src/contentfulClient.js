@@ -9,7 +9,8 @@ const ACCESS_TOKEN = import.meta.env.VITE_CONTENTFUL_ACCESS_TOKEN; // Para Vite
 // Si usas Create React App, sería:
 // const SPACE_ID = process.env.REACT_APP_CONTENTFUL_SPACE_ID;
 // const ACCESS_TOKEN = process.env.REACT_APP_CONTENTFUL_ACCESS_TOKEN;
-
+console.log('SPACE_ID:', SPACE_ID);
+console.log('ACCESS_TOKEN:', ACCESS_TOKEN);
 // Crea el cliente de Contentful
 export const client = createClient({
   space: SPACE_ID,
