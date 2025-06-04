@@ -37,7 +37,7 @@ function MainLayout({ children }) {
             <div className="flex items-center gap-9">
               <HashLink smooth to="/#inicio" className="text-white text-sm font-medium leading-normal">Inicio</HashLink>
               <HashLink smooth to="/#productos" className="text-white text-sm font-medium leading-normal">Productos</HashLink>
-              <HashLink smooth to="/#ai-suggestion" className="text-white text-sm font-medium leading-normal">Sugerencia IA</HashLink> {/* <-- Nuevo enlace */}
+              {/* <HashLink smooth to="/#ai-suggestion" className="text-white text-sm font-medium leading-normal">Sugerencia IA</HashLink>  */}
               <HashLink smooth to="/#aboutus" className="text-white text-sm font-medium leading-normal">Sobre Nosotros</HashLink>
               <HashLink smooth to="/#talkus" className="text-white text-sm font-medium leading-normal">Contacto</HashLink>
             </div>
@@ -65,7 +65,7 @@ function HomePage() {
     <>
       <HeroSection />
       <ProductsSection />
-      <AISuggestionSection /> {/* <-- Incluye la nueva sección aquí */}
+      {/* <AISuggestionSection />  */}
       <AboutUs />
       <ContactForm />
     </>
