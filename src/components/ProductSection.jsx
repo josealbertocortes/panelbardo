@@ -95,7 +95,7 @@ function ProductsSection() {
                   to={`/productos/${product.category}`}
                   className="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-10 px-4 bg-blue-600 hover:bg-blue-700 text-white text-sm font-bold leading-normal tracking-[0.015em] transition duration-300 w-full"
                 >
-                  <span className="truncate">Ver todos los {product.category}</span>
+                  <span className="truncate">Ver {product.category}</span>
                 </Link>
               </div>
             </div>
