@@ -1,6 +1,7 @@
 // src/components/ProductsSection.jsx
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { getCategoryDescription } from '../utils/utils';
 
 const SPACE_ID = import.meta.env.VITE_CONTENTFUL_SPACE_ID;
 const ACCESS_TOKEN = import.meta.env.VITE_CONTENTFUL_ACCESS_TOKEN;
@@ -87,7 +88,7 @@ function ProductsSection() {
                 {/* Mostramos el nombre de la categoría en lugar del nombre del producto principal */}
                 <p className="text-white text-lg font-medium leading-normal mb-1"> {product.category.charAt(0).toUpperCase() + product.category.slice(1)}</p>
                 {/* Puedes poner una descripción general de la categoría aquí, o una frase motivadora */}
-                <p className="text-[#adadad] text-sm font-normal leading-normal">Descubre la variedad de  {product.category}</p>
+                <p className="text-[#adadad] text-sm font-normal leading-normal"> {getCategoryDescription(product.category)}</p>
               </div>
               
               <div className="flex justify-center mt-auto w-full">

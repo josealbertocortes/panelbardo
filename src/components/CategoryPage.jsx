@@ -22,10 +22,11 @@ function CategoryPage() {
           'fields.categoria[in]': categoryName, // Filtra por el campo 'categoria'
           order: 'sys.createdAt',
         });
+        console.log(`Productos de la categoría ${categoryName} cargados desde Contentful:`, response.items);
 
         const fetchedProducts = response.items.map(item => ({
           id: item.sys.id,
-          name: item.fields.nombre,
+          name: item.fields.title,
           description: item.fields.descripcion,
           image: item.fields.imagen?.fields?.file?.url,
           category: item.fields.categoria,
