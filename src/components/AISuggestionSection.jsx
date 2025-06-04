@@ -56,14 +56,14 @@ function AISuggestionSection() {
     setSuggestedProduct(null);
 
     try {
-      const response = await fetch('/.netlify/functions/ai-suggest-product', {
+      const response = await fetch('https://animated-griffin-34376c.netlify.app/.netlify/functions/ai-suggest-product', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({ preferences }),
       });
-
+      console.log("Response from AI function:", response);
       if (!response.ok) {
         const errorData = await response.json();
         throw new Error(errorData.message || 'Error en la sugerencia de IA');

@@ -39,8 +39,11 @@ exports.handler = async function(event, context) {
         // Aquí iría la lógica para llamar a la API de IA
         // Ejemplo con Google Gemini API:
         const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash" }); // O el modelo que estés usando
+       
         const result = await model.generateContent(prompt);
+        console.log("AI response:", result);
         const response = await result.response;
+        console.log("AI response text:", response);
         let suggestionText = response.text.trim();
 
         // Limpiar la sugerencia para obtener solo el nombre del producto
