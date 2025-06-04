@@ -1,36 +1,58 @@
-// src/components/CategoryPage.jsx (o src/pages/CategoryPage.jsx)
+// src/components/CategoryPage.jsx
 import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
-
-// Reutiliza los mismos datos de productos aquí, o impórtalos de donde los tengas definidos
-const allProducts = [
-  { id: 1, name: 'Pasteles Artesanales', description: 'Una experiencia indulgente para los verdaderos amantes del cacao', image: '/images/pasteluno.jpeg', category: 'pasteles', price: 25.00 },
-  { id: 2, name: 'Paquete pastel', description: 'Descubre un mundo de sabores en nuestro paquete especial.', image: '/images/pasteldos.jpeg', category: 'galletas', price: 40.00 },
-  { id: 3, name: 'Pasteles Unicos', description: 'Deléitate con nuestro pastel de chocolate oscuro.', image: '/images/pasteltres.jpeg', category: 'tartas', price: 30.00 },
-  { id: 4, name: 'Tarta de Frutas', description: 'Fresca y deliciosa tarta con frutas de temporada.', image: '/images/pastelcuatro.jpeg', category: 'tartas', price: 20.00 },
-  { id: 5, name: 'Brownie Especial', description: 'El brownie más chocolatero que hayas probado.', image: '/images/pastelcinco.jpeg', category: 'pasteles', price: 15.00 },
-];
+import { client } from '../contentfulClient'; // <--- Importa el cliente de Contentful
 
 // TU NÚMERO DE TELÉFONO DE WHATSAPP AQUÍ (formato internacional, sin +, sin 00)
-const WHATSAPP_NUMBER = '5215528508289'; // Ejemplo: para México (52) y un número de celular (1) y el resto del número.
+const WHATSAPP_NUMBER = 'TU_NUMERO_DE_WHATSAPP_AQUI'; // ¡CAMBIA ESTO!
 
 function CategoryPage() {
   const { categoryName } = useParams();
   const [productsInCategory, setProductsInCategory] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
-    const filtered = allProducts.filter(
-      (product) => product.category.toLowerCase() === categoryName.toLowerCase()
-    );
-    setProductsInCategory(filtered);
-  }, [categoryName]);
+    const fetchCategoryProducts = async () => {
+      try {
+        setLoading(true);
+        // Filtrar por el campo 'categoria' en Contentful
+        const response = await client.getEntries({
+          content_type: 'product',
+          'fields.categoria[in]': categoryName, // Filtra por el campo 'categoria'
+          order: 'sys.createdAt',
+        });
+
+        const fetchedProducts = response.items.map(item => ({
+          id: item.sys.id,
+          name: item.fields.nombre,
+          description: item.fields.descripcion,
+          image: item.fields.imagen?.fields?.file?.url,
+          category: item.fields.categoria,
+          price: item.fields.precio,
+        }));
+        
+        setProductsInCategory(fetchedProducts);
+      } catch (e) {
+        setError(e);
+        console.error(`Error al cargar productos de la categoría ${categoryName} desde Contentful:`, e);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchCategoryProducts();
+  }, [categoryName]); // Asegúrate de que se ejecute cuando categoryName cambie
+
+  if (loading) return <div className="text-white text-center py-10">Cargando productos de {categoryName}...</div>;
+  if (error) return <div className="text-red-500 text-center py-10">Error al cargar productos: {error.message}</div>;
 
   return (
     <div className="relative flex size-full min-h-screen flex-col bg-[#1a1a1a] dark group/design-root overflow-x-hidden"
          style={{ fontFamily: '"Plus Jakarta Sans", "Noto Sans", sans-serif' }}>
       <div className="layout-container flex h-full grow flex-col px-40 py-10">
         <h2 className="text-white tracking-light text-[28px] font-bold leading-tight px-4 text-center pb-8">
-         {categoryName.charAt(0).toUpperCase() + categoryName.slice(1)}
+          Productos de la categoría: {categoryName.charAt(0).toUpperCase() + categoryName.slice(1)}
         </h2>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 p-4 max-w-screen-lg mx-auto justify-items-center">
@@ -44,11 +66,10 @@ function CategoryPage() {
                 <div>
                   <p className="text-white text-lg font-medium leading-normal mb-1">{product.name}</p>
                   <p className="text-[#adadad] text-sm font-normal leading-normal">{product.description}</p>
-                  {/* <p className="text-white text-md font-bold mt-2">${product.price.toFixed(2)}</p>  */}
+                  {/* <p className="text-white text-md font-bold mt-2">${product.price?.toFixed(2)}</p> */}
                 </div>
                 
-                {/* Botón "Pedir" para cada producto */}
-                <div className="flex justify-center mt-auto w-full"> {/* mt-auto para empujar el botón hacia abajo */}
+                <div className="flex justify-center mt-auto w-full">
                   <a
                     href={`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(`Hola, quisiera pedir el producto: ${product.name} (Categoría: ${categoryName.charAt(0).toUpperCase() + categoryName.slice(1)}).`)}`}
                     target="_blank"
@@ -58,7 +79,6 @@ function CategoryPage() {
                     <span className="truncate">Pedir {product.name}</span>
                   </a>
                 </div>
-                {/* FIN del Botón "Pedir" */}
 
               </div>
             ))
@@ -69,7 +89,6 @@ function CategoryPage() {
           )}
         </div>
 
-        {/* Botón para volver a la página principal o a la sección de productos */}
         <div className="flex px-4 py-3 justify-center mt-10">
           <Link
             to="/#productos"
