@@ -44,7 +44,9 @@ exports.handler = async function(event, context) {
         console.log("AI response:", result);
         const response = await result.response;
         console.log("AI response text:", response);
-        let suggestionText = response.text.trim();
+        console.log("AI response type:", response.candidates[0].content);
+        let suggestionText = response.text
+        console.log("AI suggestion text:", suggestionText);
 
         // Limpiar la sugerencia para obtener solo el nombre del producto
         // La IA puede añadir texto extra, así que intentamos extraer solo el nombre
