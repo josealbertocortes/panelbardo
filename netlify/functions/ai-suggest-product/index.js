@@ -56,8 +56,7 @@ exports.handler = async function(event, context) {
         const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash" }); // O "models/gemini-1.0-pro" si esa es la que funciona para ti
         const result = await model.generateContent(prompt);
         const response = await result.response;
-        console.log("AI Response:", response.text);
-        let suggestionText = response.text;
+   
 
         // 4. Limpiar la sugerencia para obtener solo el nombre del producto
         // Intentar limpiar la sugerencia para que sea solo el nombre.
@@ -65,7 +64,7 @@ exports.handler = async function(event, context) {
         // Un patrón común es esperar el nombre exacto, o intentar extraerlo.
         // Aquí intentamos limpiar cualquier cosa que no sea el nombre del producto
         // y tomamos la primera línea.
-        suggestionText = suggestionText.split('\n')[0].replace(/[^a-zA-Z0-9\sÁÉÍÓÚáéíóúüÜñÑ]/g, '').trim();
+        //suggestionText = suggestionText.split('\n')[0].replace(/[^a-zA-Z0-9\sÁÉÍÓÚáéíóúüÜñÑ]/g, '').trim();
 
         // Puedes añadir una comprobación extra aquí si quieres asegurarte de que la sugerencia
         // de la IA sea uno de los productos de tu lista.
@@ -77,7 +76,7 @@ exports.handler = async function(event, context) {
 
         return {
             statusCode: 200,
-            body: JSON.stringify({ suggestedProductName: suggestionText }),
+            body: JSON.stringify({ suggestedProductName: response }),
         };
 
     } catch (error) {
