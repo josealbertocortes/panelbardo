@@ -49,7 +49,7 @@ exports.handler = async function(event, context) {
         // AQUÍ ASEGÚRATE DE USAR EL MODELO CORRECTO
         // Si quieres "Pro", usa "gemini-pro" o "models/gemini-1.0-pro".
         // Si quieres "Flash", usa "gemini-flash" o "models/gemini-1.5-flash".
-        const model = genAI.getGenerativeModel({ model: "gemini-pro" }); // <-- CAMBIA ESTO AL MODELO DESEADO ("gemini-pro" para Pro, "gemini-1.5-flash" para Flash, etc.)
+        const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash" }); // <-- CAMBIA ESTO AL MODELO DESEADO ("gemini-pro" para Pro, "gemini-1.5-flash" para Flash, etc.)
 
         const result = await model.generateContent(prompt);
         // IMPORTANTE: Acceder al texto de la respuesta correctamente
