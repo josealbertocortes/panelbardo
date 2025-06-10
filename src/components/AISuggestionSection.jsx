@@ -107,18 +107,9 @@ function AISuggestionSection() {
           Describe lo que se te antoja en este momento y nuestra IA te sugerirá algo delicioso de nuestro menú.
         </p>
 
-        <div className="mb-8">
-          <Button
-            onClick={() => setShowInput(!showInput)}
-            className="bg-gray-700 hover:bg-gray-600 text-white max-w-xs"
-          >
-            {showInput ? 'Ocultar Campo de Antojo' : 'Quiero una sugerencia'}
-          </Button>
-        </div>
 
-        {showInput && (
+     
           <div className="bg-[#2a2a2a] p-6 rounded-lg shadow-lg mb-8 transition-all duration-300 ease-in-out">
-            <h3 className="text-white text-xl font-semibold mb-4">Describe tu antojo:</h3>
             <label className="flex flex-col mb-6">
                 <textarea
                     name="antojo"
@@ -140,7 +131,7 @@ function AISuggestionSection() {
                 </Button>
             </div>
           </div>
-        )}
+       
 
         {suggestedProduct && (
           <div className="bg-[#2a2a2a] p-6 rounded-lg shadow-lg mt-8 animate-fade-in">
@@ -160,9 +151,9 @@ function AISuggestionSection() {
                 <p className="text-[#adadad] text-base font-normal leading-relaxed mb-4">
                   {suggestedProduct.description}
                 </p>
-                <p className="text-white text-lg font-bold mb-4">
+               {/*  <p className="text-white text-lg font-bold mb-4">
                   {suggestedProduct.price ? `$${suggestedProduct.price.toFixed(2)}` : 'Precio no disponible'}
-                </p>
+                </p> */}
                 <div className="flex justify-center">
                     <Button
                         onClick={getWhatsAppOrderLink()}
