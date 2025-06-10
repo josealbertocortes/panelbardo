@@ -1,10 +1,19 @@
-// netlify/functions/ai-suggest-product.js
-const { GoogleGenerativeAI } = require("@google/generative-ai"); // O la librería de tu proveedor de IA (ej., openai)
+// netlify/functions/ai-suggest-product.cjs
+const { GoogleGenerativeAI } = require("@google/generative-ai");
+const contentful = require("contentful"); // Importa el SDK de Contentful para Node.js
 
-// Asegúrate de tener tu clave de API de IA configurada como variable de entorno en Netlify
-const GEMINI_API_KEY = process.env.GEMINI_API_KEY; // O process.env.OPENAI_API_KEY
+// Credenciales de Contentful para la Netlify Function
+// Asegúrate de que estas variables de entorno estén configuradas en Netlify
+const CONTENTFUL_SPACE_ID = process.env.VITE_CONTENTFUL_SPACE_ID; // Usamos el mismo nombre que en Vite
+const CONTENTFUL_ACCESS_TOKEN = process.env.VITE_CONTENTFUL_ACCESS_TOKEN; // Usamos el mismo nombre
 
-// Initialize GoogleGenerativeAI
+// Inicializa el cliente de Contentful en la función
+const contentfulClient = contentful.createClient({
+  space: CONTENTFUL_SPACE_ID,
+  accessToken: CONTENTFUL_ACCESS_TOKEN,
+});
+
+const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
 const genAI = new GoogleGenerativeAI(GEMINI_API_KEY);
 
 exports.handler = async function(event, context) {
@@ -16,42 +25,53 @@ exports.handler = async function(event, context) {
     }
 
     try {
-        const { preferences } = JSON.parse(event.body);
+        const { userAntojo } = JSON.parse(event.body);
 
-        // Construir el prompt para la IA
-        let prompt = "Basado en las siguientes preferencias para una panadería/pastelería, sugiere un producto de nuestra lista. Responde SOLAMENTE con el nombre del producto sugerido. Si no puedes sugerir nada, responde 'N/A'.\n\n";
-        prompt += "Nuestras categorías de productos son: pan-dulce, pasteles, pan-salado, pan-frutal, postres-chocolate, bebidas-cafe.\n\n";
-        prompt += "Ejemplos de productos: Concha, Cuernito, Pan de Muerto, Pastel de Chocolate, Empanada de Cajeta, Cafe Latte.\n\n";
+        // 1. Obtener los productos de Contentful para dárselos a la IA
+        const contentfulResponse = await contentfulClient.getEntries({
+          content_type: 'product',
+          select: 'fields.title,fields.descripcion', // Solo necesitamos título y descripción
+          limit: 100 // Limita para evitar payloads muy grandes, ajusta según tu catálogo
+        });
 
-        let userPreferences = [];
-        if (preferences.dulce) userPreferences.push("dulce");
-        if (preferences.salado) userPreferences.push("salado");
-        if (preferences.frutal) userPreferences.push("frutal");
-        if (preferences.chocolate) userPreferences.push("chocolate");
-        if (preferences.cafe) userPreferences.push("café");
+        const products = contentfulResponse.items.map(item => ({
+          title: item.fields.title,
+          description: item.fields.descripcion,
+        }));
 
-        if (userPreferences.length > 0) {
-            prompt += `Las preferencias del cliente son: ${userPreferences.join(', ')}.`;
-        } else {
-            prompt += "El cliente no tiene preferencias específicas, sugiere un producto popular.";
-        }
+        // Construir la lista de productos para el prompt
+        let productsListForPrompt = products.map(p => `- Nombre: ${p.title}, Descripción: ${p.description}`).join('\n');
 
-        // Aquí iría la lógica para llamar a la API de IA
-        // Ejemplo con Google Gemini API:
-        const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash" }); // O el modelo que estés usando
-       
+        // 2. Construir el prompt para la IA
+        let prompt = `Eres un experto en panadería y pastelería. Un cliente ha descrito su antojo. Basándote en este antojo y en la lista de nuestros productos disponibles, sugiere el producto más adecuado de nuestra lista.
+
+        Nuestros productos son los siguientes:
+        ${productsListForPrompt}
+
+        Antojo del cliente: "${userAntojo}"
+
+        Responde SOLAMENTE con el nombre exacto del producto sugerido de la lista. Si no estás seguro o no hay una coincidencia clara, responde 'N/A'.`;
+
+        // 3. Llamada a la API de IA (usando el modelo "Pro")
+        const model = genAI.getGenerativeModel({ model: "gemini-pro" }); // O "models/gemini-1.0-pro" si esa es la que funciona para ti
         const result = await model.generateContent(prompt);
-        console.log("AI response:", result);
         const response = await result.response;
-        console.log("AI response text:", response);
-        console.log("AI response type:", response.candidates[0].content);
-        let suggestionText = response.text
-        console.log("AI suggestion text:", suggestionText);
+        let suggestionText = response.text.trim();
 
-        // Limpiar la sugerencia para obtener solo el nombre del producto
-        // La IA puede añadir texto extra, así que intentamos extraer solo el nombre
+        // 4. Limpiar la sugerencia para obtener solo el nombre del producto
+        // Intentar limpiar la sugerencia para que sea solo el nombre.
         // Esto es crucial y puede requerir ajuste basado en el comportamiento de tu IA.
-        suggestionText = suggestionText.split('\n')[0].replace(/[^a-zA-Z0-9\s]/g, '').trim(); // Eliminar caracteres especiales y tomar la primera línea
+        // Un patrón común es esperar el nombre exacto, o intentar extraerlo.
+        // Aquí intentamos limpiar cualquier cosa que no sea el nombre del producto
+        // y tomamos la primera línea.
+        suggestionText = suggestionText.split('\n')[0].replace(/[^a-zA-Z0-9\sÁÉÍÓÚáéíóúüÜñÑ]/g, '').trim();
+
+        // Puedes añadir una comprobación extra aquí si quieres asegurarte de que la sugerencia
+        // de la IA sea uno de los productos de tu lista.
+        // const isProductValid = products.some(p => p.title.toLowerCase() === suggestionText.toLowerCase());
+        // if (!isProductValid && suggestionText !== 'N/A') {
+        //     suggestionText = 'N/A'; // Forzar a N/A si no es un producto conocido
+        // }
 
 
         return {

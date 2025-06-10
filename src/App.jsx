@@ -65,7 +65,7 @@ function HomePage() {
     <>
       <HeroSection />
       <ProductsSection />
-      {/* <AISuggestionSection />  */}
+      <AISuggestionSection />  
       <AboutUs />
       <ContactForm />
     </>

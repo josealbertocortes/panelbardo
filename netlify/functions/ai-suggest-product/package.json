@@ -11,6 +11,7 @@
   "license": "ISC",
   "dependencies": {
     "@google/generative-ai": "^0.24.1",
+    "contentful": "^11.5.25",
     "nodemailer": "^7.0.3"
   }
 }
