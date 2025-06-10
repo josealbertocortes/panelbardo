@@ -53,10 +53,11 @@ exports.handler = async function(event, context) {
         Responde SOLAMENTE con el nombre exacto del producto sugerido de la lista. Si no estás seguro o no hay una coincidencia clara, responde 'N/A'.`;
 
         // 3. Llamada a la API de IA (usando el modelo "Pro")
-        const model = genAI.getGenerativeModel({ model: "gemini-pro" }); // O "models/gemini-1.0-pro" si esa es la que funciona para ti
+        const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash" }); // O "models/gemini-1.0-pro" si esa es la que funciona para ti
         const result = await model.generateContent(prompt);
         const response = await result.response;
-        let suggestionText = response.text.trim();
+        console.log("AI Response:", response.text);
+        let suggestionText = response.text;
 
         // 4. Limpiar la sugerencia para obtener solo el nombre del producto
         // Intentar limpiar la sugerencia para que sea solo el nombre.
